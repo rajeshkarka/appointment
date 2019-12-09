@@ -10,18 +10,17 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import com.intuit.demo.boot.appointment.model.Appointment;
-import com.intuit.demo.db.Repository;
+import com.intuit.demo.boot.appointment.repository.AppointmentRepository;
 
 @Component("appointmentService")
 @Service(value="appointmentService")
 public class AppointmentServiceImpl implements AppointmentService {
 
     @Autowired
-    @Lazy
-    Repository repository;
+    AppointmentRepository repository;
 
     
-    public AppointmentServiceImpl(Repository repository) {
+    public AppointmentServiceImpl(AppointmentRepository repository) {
 		this.repository = repository;
 	}
 

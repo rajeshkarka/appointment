@@ -6,16 +6,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.intuit.demo.boot.appointment.model.Pet;
-import com.intuit.demo.db.Repository;
+import com.intuit.demo.boot.appointment.repository.AppointmentRepository;
 
 @Component
 public class PetServiceImpl implements PetService{
 
 	@Autowired
-	Repository respository;
+	AppointmentRepository respository;
 	
 	
-	public PetServiceImpl(Repository respository) {
+	public PetServiceImpl(AppointmentRepository respository) {
 		this.respository = respository;
 	}
 
