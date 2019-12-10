@@ -4,25 +4,25 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.intuit.demo.boot.appointment.model.VeternityClinic;
+import com.intuit.demo.boot.appointment.model.VeterinaryClinic;
 
 @Service(value="veternityService")
 public class VeternityServiceImpl implements VeternityService{
 
 	@Override
-	public Long addVeternity(VeternityClinic veternity) {
+	public Long addVeternity(VeterinaryClinic veternity) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public VeternityClinic getVeternity(Long veternityId) {
+	public VeterinaryClinic getVeternity(Long veternityId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<VeternityClinic> getAllClinics() {
+	public List<VeterinaryClinic> getAllClinics() {
 		// TODO Auto-generated method stub
 		return null;
 	}

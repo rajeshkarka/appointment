@@ -1,1 +1,29 @@
-<p>appointments works!</p>
+<h1>appointments works!</h1>
+
+<div class="container">
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Doctor Name</th>
+				<th>Appointment Date</th>
+				<th>Appointment Start Time</th>
+				<th>Appointment End Time</th>
+				<th>Status</th>
+				<th>Pet Id</th>
+				<th>Branch Id</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor="let appointment of appointments">
+				<td>{{appointment.nameOfDoctor}}</td>
+				<td>{{appointment.appointmentDate}}</td>
+				<td>{{appointment.appointmentStartTime}}</td>
+				<td>{{appointment.appointmentEndTime}}</td>
+				<td>{{appointment.status}}</td>
+				<td>{{appointment.petId}}</td>
+				<td>{{appointment.branchId}}</td>
+				<td><button class="btn btn-warning">Cancel</button></td>
+			</tr>
+		</tbody>
+	</table>
+</div>

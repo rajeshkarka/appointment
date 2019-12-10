@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AppointmentsService } from 'src/app/services/data/appointments.service';
+import { Appointment } from 'src/app/models/app.appointment';
 
 @Component({
   selector: 'app-appointments',
@@ -8,6 +9,8 @@ import { AppointmentsService } from 'src/app/services/data/appointments.service'
 })
 export class AppointmentsComponent implements OnInit {
 
+  appointments:Appointment[];
+
   constructor(private appointmentService:AppointmentsService) { }
 
   ngOnInit() {
@@ -15,6 +18,9 @@ export class AppointmentsComponent implements OnInit {
   }
 
   loadAppointments(){
-	this.appointmentService.loadAppointments();
+	return this.appointmentService.loadAppointments().subscribe(
+		response=>{
+			this.appointments =response}
+	);
 }
 }

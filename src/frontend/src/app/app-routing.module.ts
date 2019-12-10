@@ -6,16 +6,20 @@ import { AppointmentsComponent } from './components/appointments/appointments.co
 import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
 import { LogoutComponent } from './components/logout/logout.component';
+import { RouteGuardService } from './services/user/route-guard.service';
+import { PetComponent } from './components/form/pet/pet.component';
 
 
 
 const routes: Routes = [ 
+	{path:'',component:LoginComponent,},
 	{path:'login',component:LoginComponent},
 	{path:'logout',component:LogoutComponent},
-	{path:'home',component:HomeComponent},
-	{path:'pets',component:PetsComponent},
-	{path:'vets',component:VetsComponent},
-	{path:'appointments',component:AppointmentsComponent}
+	{path:'home',component:HomeComponent,canActivate:[RouteGuardService]},
+	{path:'pets',component:PetsComponent,canActivate:[RouteGuardService]},
+	{path:'pet',component:PetComponent,canActivate:[RouteGuardService]},
+	{path:'vets',component:VetsComponent,canActivate:[RouteGuardService]},
+	{path:'appointments',component:AppointmentsComponent,canActivate:[RouteGuardService]}
  ];
 
 @NgModule({

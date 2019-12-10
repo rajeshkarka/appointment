@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PetService } from 'src/app/services/data/pet-service';
+import { Pet } from 'src/app/models/app.pet';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-pets',
@@ -8,24 +10,26 @@ import { PetService } from 'src/app/services/data/pet-service';
 })
 export class PetsComponent implements OnInit {
 
-  constructor(private petsService:PetService) { }
+  constructor(private petsService:PetService,private router:Router) { }
+
+ id:number;
+ pets:Pet[];
 
   ngOnInit() {
-	this.loadPets;
+	this.loadPets();
   }
 
 loadPets(){
-	this.petsService.loadPets();
 	console.log("loading pets");
+	return this.petsService.loadPets().subscribe(
+		response=>{
+			this.pets =response}
+	);
+}
+
+deletePet(petId){
+	this.petsService.deletePet(petId).subscribe();
+	this.router.navigate(['pets']);
 }
 }
 
-export class Pet{
-	constructor(
-		public id:number,
-		public name:string,
-		public description:string,
-		public age:number,
-		public gender:string
-	){}
-}

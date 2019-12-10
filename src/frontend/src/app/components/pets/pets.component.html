@@ -1,6 +1,11 @@
-<h1>Pets</h1>
+
 
 <div class="container">
+<h1>Pets</h1>
+<a routerLink="/pet" class="btn btn-primary a-btn-slide-text">
+       <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+       <span><strong>Add Another Pet</strong></span>            
+   </a>
 	<table class="table">
 		<thead>
 			<tr>
@@ -14,12 +19,21 @@
 		</thead>
 		<tbody>
 			<tr *ngFor="let pet of pets">
-				<td>{{pet.name}}</td>
+				<td>{{pet.petName}}</td>
 				<td>{{pet.description}}</td>
 				<td>{{pet.age}}</td>
 				<td>{{pet.breed}}</td>
 				<td>{{pet.gender}}</td>
-				<td><button class="btn btn-warning">delete</button></td>
+				<td>
+			    <a routerLink="/pet" class="btn btn-secondary a-btn-slide-text">
+			        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+			        <span><strong>Edit</strong></span>            
+			    </a>
+			    <a (click)="deletePet(pet.petId)" class="btn btn-warning a-btn-slide-text">
+			       <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+			        <span><strong>Delete</strong></span>            
+			    </a>
+    		</td>
 			</tr>
 		</tbody>
 	</table>

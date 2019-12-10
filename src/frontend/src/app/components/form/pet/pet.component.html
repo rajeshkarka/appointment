@@ -1,0 +1,25 @@
+<p>pet works!</p>
+<div class="container">
+<form (ngSubmit)="!petForm.invalid && savePet()" #petForm="ngForm">
+	<fieldset>
+		<label>Name</label> 
+		<input type="text" class="form-control" [(ngModel)]="pet.petName" name="petName"  /> 
+		<label>Description</label> 
+		<input type="text" class="form-control" [(ngModel)]="pet.description" name="description" required="" /> 
+		<label>Age</label>
+		<input type="text" class="form-control" [(ngModel)]="pet.age" name="age" required="required" /> 
+		<label>Breed</label>
+		<input type="text" class="form-control" [(ngModel)]="pet.breed" name="breed" required="required" /> 
+		<label>Gender</label>
+		<select  class="form-control" [(ngModel)]="gender" name="pet.gender" required="required">
+		<option value="male">Male</option>
+		<option value="female">Female</option>
+		</select>
+		<div class="clearfix">
+		<a href="/pets" class="navbar-link">Cancel</a>
+		<button type="submit" class="btn btn-success float-right">Save</button>
+		</div>
+	</fieldset>
+	</form>
+	
+</div>

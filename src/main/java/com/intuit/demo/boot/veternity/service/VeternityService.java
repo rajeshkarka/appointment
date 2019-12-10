@@ -2,13 +2,13 @@ package com.intuit.demo.boot.veternity.service;
 
 import java.util.List;
 
-import com.intuit.demo.boot.appointment.model.VeternityClinic;
+import com.intuit.demo.boot.appointment.model.VeterinaryClinic;
 
 public interface VeternityService {
 
-	Long addVeternity(VeternityClinic veternity);
+	Long addVeternity(VeterinaryClinic veternity);
 	
-	VeternityClinic getVeternity(Long veternityId);
+	VeterinaryClinic getVeternity(Long veternityId);
 	
-	List<VeternityClinic> getAllClinics();
+	List<VeterinaryClinic> getAllClinics();
 }

@@ -11,4 +11,6 @@ public interface PetService {
 	Pet getPet(Long petId);
 
 	List<Pet> getAllPets(Long userId);
+
+	void delete(Long petId);
 }

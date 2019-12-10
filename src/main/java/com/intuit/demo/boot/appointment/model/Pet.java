@@ -1,21 +1,166 @@
 package com.intuit.demo.boot.appointment.model;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import lombok.Data;
 
 @Data
 @Entity
+@Table(name="pets")
 public class Pet {
 
-	private @Id @GeneratedValue Long petId;
+	@Id 
+	@GeneratedValue
+	@Column(name="pet_id")
+	private  Long petId;
+	
+	@ManyToOne(fetch=FetchType.EAGER,cascade=CascadeType.ALL)
+	@JoinColumn(name="user_id")
+	private User user;
+	
+	@Column(name = "pet_name")
 	private String petName;
+	
+	@Column(name = "description")
+	private String description;
+	
+	@Column(name = "age")
 	private Float age;
+	
+	@Column(name = "breed")
 	private String breed;
+	
+	@Column(name = "gender")
 	private String gender;
 	
+	
+	public Pet() {
+		
+	}
+	
+	
+
+	public Long getPetId() {
+		return petId;
+	}
+
+
+
+
+	public void setPetId(Long petId) {
+		this.petId = petId;
+	}
+
+
+
+
+	public User getUser() {
+		return user;
+	}
+
+
+
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+
+
+
+	public String getPetName() {
+		return petName;
+	}
+
+
+
+
+	public void setPetName(String petName) {
+		this.petName = petName;
+	}
+
+
+
+
+	public String getDescription() {
+		return description;
+	}
+
+
+
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+
+
+
+	public Float getAge() {
+		return age;
+	}
+
+
+
+
+	public void setAge(Float age) {
+		this.age = age;
+	}
+
+
+
+
+	public String getBreed() {
+		return breed;
+	}
+
+
+
+
+	public void setBreed(String breed) {
+		this.breed = breed;
+	}
+
+
+
+
+	public String getGender() {
+		return gender;
+	}
+
+
+
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+
+
+
+	public Pet(Long petId, Long userId,String description, String petName, Float age, String breed, String gender) {
+		super();
+		this.petId = petId;
+		User user=new User();
+		
+		this.user=user;
+		this.description=description;
+		this.petName = petName;
+		this.age = age;
+		this.breed = breed;
+		this.gender = gender;
+	}
+
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

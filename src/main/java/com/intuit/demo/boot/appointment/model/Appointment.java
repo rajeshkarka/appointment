@@ -2,9 +2,15 @@ package com.intuit.demo.boot.appointment.model;
 
 import lombok.Data;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
 import java.math.BigDecimal;
 import java.sql.Time;
 import java.sql.Timestamp;
@@ -12,17 +18,39 @@ import java.time.LocalDate;
 
 @Data
 @Entity
+@Table(name="appointments")
 public class Appointment {
 
-    private @Id @GeneratedValue Long id;
+	@Id 
+	@GeneratedValue 
+	@Column(name="id")
+    private Long id;
+	
     private Timestamp createdAt = new Timestamp(System.currentTimeMillis());
+    
+    @Column(name="date")
     private LocalDate appointmentDate;
+    
+    @Column(name="start_time")
     private Time appointmentStartTime;
+    
+    @Column(name="end_time")
     private Time appointmentEndTime;
+    
+    @Column(name="doctor_name")
     private String nameOfDoctor;
-    private AppointmentStatus status = AppointmentStatus.Booked;
+    
+    @OneToOne(fetch=FetchType.EAGER)
+    @JoinColumn(name="status")
+    private AppointmentStatus status;
+    
+    @Column(name="price")
     private BigDecimal price;
+    
+    @Column(name="pet_id")
     private Long petId;
+    
+    @Column(name="branch_id")
     private Long branchId;
 
     public Appointment() {
