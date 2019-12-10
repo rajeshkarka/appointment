@@ -1,0 +1,26 @@
+<h1>Pets</h1>
+
+<div class="container">
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Description</th>
+				<th>Age</th>
+				<th>Breed</th>
+				<th>Gender</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor="let pet of pets">
+				<td>{{pet.name}}</td>
+				<td>{{pet.description}}</td>
+				<td>{{pet.age}}</td>
+				<td>{{pet.breed}}</td>
+				<td>{{pet.gender}}</td>
+				<td><button class="btn btn-warning">delete</button></td>
+			</tr>
+		</tbody>
+	</table>
+</div>

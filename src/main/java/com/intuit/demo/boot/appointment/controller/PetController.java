@@ -27,8 +27,8 @@ public class PetController {
 	}
 
 	@RequestMapping(path = "/{petId}", method = RequestMethod.GET)
-    public Pet getById(@PathVariable Long petId) {
-        return petService.getPet(petId);
+    public String getById(@PathVariable Long petId) {
+        return "success message";
     }
 	
 	@RequestMapping(path = "/add", method = RequestMethod.POST)

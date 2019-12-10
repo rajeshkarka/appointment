@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan({"com.intuit.demo", "com.server.config"})
+@ComponentScan(basePackages={"com.intuit.demo", "com.server.config"})
 public class BootUpAppointment {
 
 	public static void main(String[] args) {

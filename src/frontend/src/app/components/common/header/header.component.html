@@ -1,0 +1,12 @@
+<header>
+	<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+		<ul class="navbar-nav">
+			<li><a routerLink="/pets" class="navbar-link" style="padding-right:10px">pets </a></li>
+			<li><a routerLink="/vets" class="navbar-link" style="padding-right:10px">vets </a></li>
+		</ul>
+		<ul class="navbar-nav navbar-collapse justify-content-end">
+		<li><a routerLink="/appointments" class="navbar-link" style="padding-right:10px">appointments </a></li>
+		<li *ngIf="userLoggedIn"><a routerLink="logout" class="navbar-link" style="padding-right:10px">{{loginText}}</a></li>
+		</ul>
+	</nav>
+</header>
