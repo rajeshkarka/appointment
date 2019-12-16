@@ -1,1 +1,39 @@
-<p>vets works!</p>
+<div class="container">
+	<h1>Vets</h1>
+	<a routerLink="/vet"
+		class="btn btn-primary a-btn-slide-text vets-float-left"> <span
+		class="glyphicon glyphicon-plus" aria-hidden="true"></span> <span><strong>Add
+				Branch</strong></span>
+	</a>
+	<div class="clear-fix"></div>
+	<a routerLink="/appointment"
+		class="btn btn-primary a-btn-slide-text vets-float-right "> <span
+		class="glyphicon glyphicon-plus" aria-hidden="true"></span> <span><strong>Schedule
+				Appointment</strong></span>
+	</a>
+	<table class="table">
+		<thead>
+			<tr>
+				<th></th>
+				<th>Branch Name</th>
+				<th>Address</th>
+				<th>Doctors</th>
+				<th>Delete</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor="let vet of vets">
+				<td class="text-center"><input type="checkbox" name="vets[]"
+					value="{{vet.branchId}}" [checked]="isSelected" /></td>
+				<td>{{vet.branchName}}</td>
+				<td>{{vet.address}}</td>
+				<td *ngFor="let doctor of vet.doctors">{{doctor.doctorName}}</td>
+				<td *ngIf="!vet.doctors">NA</td>
+				<td><a (click)="deleteVet(vet.branchId)"
+					class="btn btn-warning a-btn-slide-text"> <span
+						class="glyphicon glyphicon-remove" aria-hidden="true"></span> <span><strong>Delete</strong></span>
+				</a></td>
+			</tr>
+		</tbody>
+	</table>
+</div>

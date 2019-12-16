@@ -15,7 +15,7 @@ public class Doctors {
 	
 	@Id
 	@GeneratedValue
-	@Column(name="id")
+	@Column(name="doctor_id")
 	private Long doctorId;
 	
 	@Column(name="doctor_name")
@@ -26,6 +26,17 @@ public class Doctors {
 	
 	@Column(name="hours")
 	private String hours;
+
+	public Doctors() {
+		
+	}
+	public Doctors(Long doctorId, String doctorName, String speciality, String hours) {
+		super();
+		this.doctorId = doctorId;
+		this.doctorName = doctorName;
+		this.speciality = speciality;
+		this.hours = hours;
+	}
 
 	public Long getDoctorId() {
 		return doctorId;

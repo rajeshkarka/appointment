@@ -1,0 +1,4 @@
+.daypilot-modal>div>visible {
+    visibility: visible!important;
+    display: block;
+}

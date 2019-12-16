@@ -1,5 +1,6 @@
 package com.intuit.demo.boot.appointment.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -26,9 +27,9 @@ public class AppointmentStatus{
 	@JoinColumn(name="user_id")
 	private User userId;
 	
-	@OneToOne
-	@JoinColumn(name="id")
-	private Appointment appointment;
+	
+	@Column(name="appointment_id")
+	private Long appointmentId;
 	
 	@Column(name="status")
     private String status;
@@ -49,12 +50,14 @@ public class AppointmentStatus{
 		this.userId = userId;
 	}
 
-	public Appointment getAppointment() {
-		return appointment;
+
+
+	public Long getAppointmentId() {
+		return appointmentId;
 	}
 
-	public void setAppointment(Appointment appointment) {
-		this.appointment = appointment;
+	public void setAppointmentId(Long appointmentId) {
+		this.appointmentId = appointmentId;
 	}
 
 	public String getStatus() {

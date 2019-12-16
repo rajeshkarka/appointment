@@ -14,7 +14,7 @@ import lombok.Data;
 public class User {
 
 	@Id @GeneratedValue
-	@Column(name="id")
+	@Column(name="user_id")
 	private Long userId;
 	
 	@Column(name="user_name")

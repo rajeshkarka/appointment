@@ -2,8 +2,6 @@ package com.intuit.demo.boot.appointment.controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServlet;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -21,8 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.intuit.demo.boot.appointment.model.Pet;
 import com.intuit.demo.boot.pet.service.PetService;
-
-import sun.security.provider.certpath.OCSPResponse.ResponseStatus;
 
 @CrossOrigin(origins="http://localhost:4200")
 @RestController

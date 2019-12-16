@@ -67,8 +67,8 @@ public class AppointmentServiceImpl implements AppointmentService {
         Optional<Appointment> appointmentList = repository.findById(appointmentId);
 
         if(appointmentList.isPresent()){
-            if(appointment.getStatus() != null){
-                appointmentList.get().setStatus(appointment.getStatus());
+            if(appointment.getStatusId()!= 0){
+                appointmentList.get().setStatusId(appointment.getStatusId());
             }
             return repository.save(appointmentList.get());
         }

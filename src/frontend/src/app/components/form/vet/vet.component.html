@@ -1,1 +1,18 @@
-<p>vet works!</p>
+<p>pet works!</p>
+<div class="container">
+<form (ngSubmit)="!vetForm.invalid && saveVet()" #vetForm="ngForm">
+	<fieldset>
+		<label>Branch Name</label> 
+		<input type="text" class="form-control" [(ngModel)]="vet.branchName" name="branchName"  /> 
+		<label>Address</label> 
+		<input type="text" class="form-control" [(ngModel)]="vet.address" name="address" required="" /> 
+		<label>Doctors</label>
+		<input type="text" class="form-control" [(ngModel)]="vet.doctors" name="doctors" required="required" /> 
+		<div class="clearfix">
+		<a href="/vets" class="navbar-link">Cancel</a>
+		<button type="submit" class="btn btn-success float-right">Save</button>
+		</div>
+	</fieldset>
+	</form>
+	
+</div>

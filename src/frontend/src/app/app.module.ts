@@ -15,9 +15,11 @@ import { LogoutComponent } from './components/logout/logout.component';
 import { PetComponent } from './components/form/pet/pet.component';
 import { VetComponent } from './components/form/vet/vet.component';
 import { AppointmentComponent } from './components/form/appointment/appointment.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, FormBuilder } from '@angular/forms';
 import { PetService } from './services/data/pet-service';
 import { HttpClientModule } from '@angular/common/http';
+import { CalendarModule } from './module/calendar/calendar.module';
+
 
 @NgModule({
   declarations: [
@@ -38,9 +40,10 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserModule,
     AppRoutingModule,
 	FormsModule,
-	HttpClientModule
+	HttpClientModule,
+	CalendarModule
   ],
-  providers: [PetService],
+  providers: [PetService,FormBuilder],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

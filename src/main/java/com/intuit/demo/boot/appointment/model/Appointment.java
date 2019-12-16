@@ -23,7 +23,7 @@ public class Appointment {
 
 	@Id 
 	@GeneratedValue 
-	@Column(name="id")
+	@Column(name="appointment_id")
     private Long id;
 	
     private Timestamp createdAt = new Timestamp(System.currentTimeMillis());
@@ -32,17 +32,17 @@ public class Appointment {
     private LocalDate appointmentDate;
     
     @Column(name="start_time")
-    private Time appointmentStartTime;
+    private Timestamp appointmentStartTime;
     
     @Column(name="end_time")
-    private Time appointmentEndTime;
-    
-    @Column(name="doctor_name")
-    private String nameOfDoctor;
+    private Timestamp appointmentEndTime;
     
     @OneToOne(fetch=FetchType.EAGER)
-    @JoinColumn(name="status")
-    private AppointmentStatus status;
+    @JoinColumn(name="doctor_name")
+    private Doctors doctor;
+    
+    @Column(name="status")
+    private Long statusId;
     
     @Column(name="price")
     private BigDecimal price;
@@ -50,42 +50,30 @@ public class Appointment {
     @Column(name="pet_id")
     private Long petId;
     
-    @Column(name="branch_id")
-    private Long branchId;
+    @OneToOne(fetch=FetchType.EAGER)
+    @JoinColumn(name="branch_id")
+    private Veterinary veterinary;
 
     public Appointment() {
 
     }
 
-    public Appointment(final Long petId,final Long branchId,final Timestamp createdAt,final LocalDate appointmentDate,final Time appointmentStartTime,final Time appointmentEndTime,final String nameOfDoctor,final AppointmentStatus status,final BigDecimal price) {
-        this.petId=petId;
-    	this.branchId=branchId;
-        this.createdAt = createdAt;
-        this.appointmentDate = appointmentDate;
-        this.appointmentStartTime = appointmentStartTime;
-        this.appointmentEndTime = appointmentEndTime;
-        this.nameOfDoctor = nameOfDoctor;
-        this.status = status;
-        this.price = price;
-    }
-
-    public Appointment(final Long petId,final Long branchId,LocalDate appointmentDate, Time appointmentStartTime, Time appointmentEndTime, String nameOfDoctor, BigDecimal price) {
-    	this.petId=petId;
-    	this.branchId=branchId;
-    	this.appointmentDate = appointmentDate;
-        this.appointmentStartTime = appointmentStartTime;
-        this.appointmentEndTime = appointmentEndTime;
-        this.nameOfDoctor = nameOfDoctor;
-        this.price = price;
-    }
-
-    public Appointment(final Long petId,final Long branchId,LocalDate appointmentDate, String nameOfDoctor, BigDecimal price) {
-    	this.petId=petId;
-    	this.branchId=branchId;
-    	this.appointmentDate = appointmentDate;
-        this.nameOfDoctor = nameOfDoctor;
-        this.price = price;
-    }
+   
+    public Appointment(Long id, Timestamp createdAt, LocalDate appointmentDate, Timestamp appointmentStartTime,
+    		Timestamp appointmentEndTime, Doctors nameOfDoctor, Long status, BigDecimal price, Long petId,
+			Veterinary veterinary) {
+		super();
+		this.id = id;
+		this.createdAt = createdAt;
+		this.appointmentDate = appointmentDate;
+		this.appointmentStartTime = appointmentStartTime;
+		this.appointmentEndTime = appointmentEndTime;
+		this.doctor = nameOfDoctor;
+		this.statusId = status;
+		this.price = price;
+		this.petId = petId;
+		this.veterinary = veterinary;
+	}
 
     
     public Long getPetId() {
@@ -96,12 +84,12 @@ public class Appointment {
 		this.petId = petId;
 	}
 
-	public Long getBranchId() {
-		return branchId;
+	public Veterinary getVeterinary() {
+		return veterinary;
 	}
 
-	public void setBranchId(Long branchId) {
-		this.branchId = branchId;
+	public void setVeterinary(Veterinary veterinary) {
+		this.veterinary = veterinary;
 	}
 
 	public Long getId() {
@@ -128,39 +116,49 @@ public class Appointment {
         this.appointmentDate = appointmentDate;
     }
 
-    public Time getAppointmentStartTime() {
-        return appointmentStartTime;
-    }
+    public Timestamp getAppointmentStartTime() {
+		return appointmentStartTime;
+	}
 
-    public void setAppointmentStartTime(Time appointmentStartTime) {
-        this.appointmentStartTime = appointmentStartTime;
-    }
 
-    public Time getAppointmentEndTime() {
-        return appointmentEndTime;
-    }
+	public void setAppointmentStartTime(Timestamp appointmentStartTime) {
+		this.appointmentStartTime = appointmentStartTime;
+	}
 
-    public void setAppointmentEndTime(Time appointmentEndTime) {
-        this.appointmentEndTime = appointmentEndTime;
-    }
 
-    public String getNameOfDoctor() {
-        return nameOfDoctor;
-    }
+	public Timestamp getAppointmentEndTime() {
+		return appointmentEndTime;
+	}
 
-    public void setNameOfDoctor(String nameOfDoctor) {
-        this.nameOfDoctor = nameOfDoctor;
-    }
 
-    public AppointmentStatus getStatus() {
-        return status;
-    }
+	public void setAppointmentEndTime(Timestamp appointmentEndTime) {
+		this.appointmentEndTime = appointmentEndTime;
+	}
 
-    public void setStatus(AppointmentStatus status) {
-        this.status = status;
-    }
 
-    public BigDecimal getPrice() {
+	public Doctors getDoctor() {
+		return doctor;
+	}
+
+
+	public void setDoctor(Doctors doctor) {
+		this.doctor = doctor;
+	}
+
+
+	
+
+    public Long getStatusId() {
+		return statusId;
+	}
+
+
+	public void setStatusId(Long statusId) {
+		this.statusId = statusId;
+	}
+
+
+	public BigDecimal getPrice() {
         return price;
     }
 

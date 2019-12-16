@@ -23,7 +23,7 @@ loadPets(){
 	console.log("loading pets");
 	return this.petsService.loadPets().subscribe(
 		response=>{
-			this.pets =response}
+			this.pets =response,console.log(this.pets)}
 	);
 }
 

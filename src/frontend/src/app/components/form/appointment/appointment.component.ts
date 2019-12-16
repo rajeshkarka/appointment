@@ -10,6 +10,7 @@ export class AppointmentComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+	console.log('loading appointment')
   }
 
 }
