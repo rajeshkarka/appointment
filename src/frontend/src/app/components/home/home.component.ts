@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FragmentsService } from 'src/app/services/content/fragments.service';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  constructor(private contentService:FragmentsService) { }
+
+  images:string[];
+  contentfragment:string;
 
   ngOnInit() {
-  }
+	this.contentService.getContentFragments().subscribe(result=>this.parseResponse(result));
+   }
+
+   parseResponse(result){
+	this.images=result[":items"]["root"][":items"]["carousel"]["pages"];
+	this.contentfragment=result[":items"]["root"][":items"]["contentfragment"]["text"];
+	}
 
 }
