@@ -9,7 +9,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import com.intuit.demo.boot.appointment.model.Appointment;
+import com.intuit.demo.boot.appointment.model.Veterinary;
 import com.intuit.demo.boot.appointment.repository.AppointmentRepository;
+import com.intuit.demo.boot.veternity.service.VeterinaryService;
 
 @Component("appointmentService")
 @Service(value="appointmentService")
@@ -17,6 +19,9 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     @Autowired
     AppointmentRepository repository;
+    
+    @Autowired
+    VeterinaryService veternaryService;
 
     
     public AppointmentServiceImpl(AppointmentRepository repository) {
@@ -46,8 +51,9 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
     @Override
-    public boolean isAvailable(final Long petId,final Long vetId,Timestamp startDate, Timestamp endDate) {
-        return false ;//repository.isAvailable(petId,vetId,startDate, endDate);
+    public boolean isAvailable(final Long petId,final Long vetId,String startDate, String endDate) {
+    	Veterinary veterinary=veternaryService.getVeternity(vetId);
+    	return repository.isAvailable(petId, veterinary, startDate.toString(), endDate.toString());
     }
 
     @Override

@@ -1,7 +1,6 @@
 package com.intuit.demo.boot.appointment.service;
 
 
-import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,7 +16,7 @@ public interface AppointmentService {
 
     List<Appointment> findAll();
 
-    boolean isAvailable(final Long petId,final Long vetId,Timestamp startDate, Timestamp endDate);
+    boolean isAvailable(final Long petId,final Long vetId,String startDate, String endDate);
 
     Appointment create(Appointment appointment);
 

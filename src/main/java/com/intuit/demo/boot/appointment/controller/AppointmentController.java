@@ -62,35 +62,37 @@ public class AppointmentController {
         return events;
     }
 	
-	@RequestMapping(path = "/availability/{petId}/{vetId}/{startTime}/{endTime}", method = RequestMethod.GET)
-    boolean isAvailable(@PathVariable Long petId,@PathVariable Long vetId,@PathVariable String startTime,@PathVariable String endTime) {
-		return appointmentService.isAvailable(petId, vetId, Timestamp.valueOf(startTime), Timestamp.valueOf(endTime));
-    }
+	
 	
 	@RequestMapping(path = "/create", method = RequestMethod.POST)
     EventDto create(@RequestBody AppointmentDTO appointmentDto) {
 		try {
-		Appointment appointment=new Appointment();
-		appointment.setAppointmentDate(appointmentDto.getAppointmentDate());
-		SimpleDateFormat formate=new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
-		Date date = formate.parse(appointmentDto.getAppointmentStartTime().replace("T", " "));
-		
-		appointment.setAppointmentStartTime(new Timestamp(date.getTime()));
-		Date endDate=formate.parse(appointmentDto.getAppointmentEndTime().replace("T", " "));
-		
-		
-		appointment.setAppointmentEndTime(new Timestamp(endDate.getTime()));
-		appointment.setDoctor(doctorsRepository.getOne(appointmentDto.getDoctorId()));
-		appointment.setPetId(appointmentDto.getPetId());
-		appointment.setVeterinary(appointmentDto.getVeterinary());
-		
-		AppointmentStatus status=new AppointmentStatus();
-		status.setUserId(appointmentDto.getUserId());
-		status.setAppointmentId(appointment.getId());
-		status=appointmentStatustService.schedule(status);
-		appointment.setStatusId(status.getScheduleId());
-		appointment=appointmentService.create(appointment);
-		return createEventDto(appointment);
+			String startTime = appointmentDto.getAppointmentStartTime();
+			String endTime = appointmentDto.getAppointmentEndTime();
+			if (appointmentService.isAvailable(appointmentDto.getPetId(), appointmentDto.getVeterinary().getBranchId(),
+					startTime, endTime)) {
+				Appointment appointment = new Appointment();
+				appointment.setAppointmentDate(appointmentDto.getAppointmentDate());
+				SimpleDateFormat formate = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+				Date date = formate.parse(appointmentDto.getAppointmentStartTime().replace("T", " "));
+
+				appointment.setAppointmentStartTime(new Timestamp(date.getTime()));
+				Date endDate = formate.parse(appointmentDto.getAppointmentEndTime().replace("T", " "));
+
+				appointment.setAppointmentEndTime(new Timestamp(endDate.getTime()));
+				appointment.setDoctor(doctorsRepository.getOne(appointmentDto.getDoctorId()));
+				appointment.setPetId(appointmentDto.getPetId());
+				appointment.setVeterinary(appointmentDto.getVeterinary());
+
+				AppointmentStatus status = new AppointmentStatus();
+				status.setUserId(appointmentDto.getUserId());
+				status.setAppointmentId(appointment.getId());
+				status = appointmentStatustService.schedule(status);
+				appointment.setStatusId(status.getScheduleId());
+
+				appointment = appointmentService.create(appointment);
+				return createEventDto(appointment);
+			}
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
