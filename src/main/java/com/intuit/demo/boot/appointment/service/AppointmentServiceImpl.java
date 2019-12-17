@@ -1,6 +1,9 @@
 package com.intuit.demo.boot.appointment.service;
 
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -51,9 +54,13 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
     @Override
-    public boolean isAvailable(final Long petId,final Long vetId,String startDate, String endDate) {
+    public boolean isAvailable(final Long petId,final Long vetId,String startDate, String endDate) throws ParseException {
     	Veterinary veterinary=veternaryService.getVeternity(vetId);
-    	return repository.isAvailable(petId, veterinary, startDate.toString(), endDate.toString());
+    	SimpleDateFormat formate = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+    	if(repository.isAvailable(petId, veterinary, formate.parse(startDate), formate.parse(endDate)) !=null) {
+    		return true;
+    	}
+    	return false;
     }
 
     @Override

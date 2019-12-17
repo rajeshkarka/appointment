@@ -18,11 +18,11 @@ public class AppointmentDTO {
     private Doctors doctor;
     private BigDecimal price;
     private Long petId;
-    private Veterinary veterinary;
+    private Long branchId;
     
     private Long scheduleId;
 	
-	private User userId;
+	private Long userId;
 	
 	private Appointment appointment;
     private String status;
@@ -67,11 +67,11 @@ public class AppointmentDTO {
 	public void setPetId(Long petId) {
 		this.petId = petId;
 	}
-	public Veterinary getVeterinary() {
-		return veterinary;
+	public Long getBranchId() {
+		return branchId;
 	}
-	public void setVeterinary(Veterinary veterinary) {
-		this.veterinary = veterinary;
+	public void setBranchId(Long branchId) {
+		this.branchId = branchId;
 	}
 	public Long getScheduleId() {
 		return scheduleId;
@@ -79,10 +79,10 @@ public class AppointmentDTO {
 	public void setScheduleId(Long scheduleId) {
 		this.scheduleId = scheduleId;
 	}
-	public User getUserId() {
+	public Long getUserId() {
 		return userId;
 	}
-	public void setUserId(User userId) {
+	public void setUserId(Long userId) {
 		this.userId = userId;
 	}
 	public Appointment getAppointment() {

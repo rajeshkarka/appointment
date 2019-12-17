@@ -134,7 +134,7 @@ export class CreateComponent implements OnInit {
     let data = this.form.getRawValue();
 
 	let user:User={
-		userId:1,
+		userId:2,
 		userName:'',
 		address:'',
 		password:''
@@ -156,7 +156,7 @@ export class CreateComponent implements OnInit {
 	  appointmentId:1,
 	  petId:this.petId,
       branchId:this.branchId,
-      price:'$20',
+      price:'20',
       status:'pending',
 	  doctorId:1,
       nameOfDoctor:data.nameOfDoctor,

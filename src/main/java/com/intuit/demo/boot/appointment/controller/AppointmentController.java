@@ -25,6 +25,8 @@ import com.intuit.demo.boot.appointment.model.EventDto;
 import com.intuit.demo.boot.appointment.repository.DoctorsRepository;
 import com.intuit.demo.boot.appointment.service.AppointmentService;
 import com.intuit.demo.boot.status.service.AppointmentStatusService;
+import com.intuit.demo.boot.user.service.UserService;
+import com.intuit.demo.boot.veternity.service.VeterinaryService;
 
 @CrossOrigin(origins="http://localhost:4200")
 @RestController
@@ -33,8 +35,15 @@ public class AppointmentController {
 
 	@Autowired
 	private AppointmentService appointmentService;
+	
 	@Autowired
 	private AppointmentStatusService appointmentStatustService;
+	
+	@Autowired
+	private VeterinaryService veterinaryService;
+	
+	@Autowired
+	private UserService userService;
 	
 	@Autowired
 	private DoctorsRepository doctorsRepository;
@@ -67,9 +76,9 @@ public class AppointmentController {
 	@RequestMapping(path = "/create", method = RequestMethod.POST)
     EventDto create(@RequestBody AppointmentDTO appointmentDto) {
 		try {
-			String startTime = appointmentDto.getAppointmentStartTime();
-			String endTime = appointmentDto.getAppointmentEndTime();
-			if (appointmentService.isAvailable(appointmentDto.getPetId(), appointmentDto.getVeterinary().getBranchId(),
+			String startTime = appointmentDto.getAppointmentStartTime()!=null?appointmentDto.getAppointmentStartTime().replace("T", " "):null;
+			String endTime = appointmentDto.getAppointmentEndTime()!=null?appointmentDto.getAppointmentEndTime().replace("T", " "):null;
+			if (startTime!=null && endTime!=null && !appointmentService.isAvailable(appointmentDto.getPetId(), appointmentDto.getBranchId(),
 					startTime, endTime)) {
 				Appointment appointment = new Appointment();
 				appointment.setAppointmentDate(appointmentDto.getAppointmentDate());
@@ -82,10 +91,10 @@ public class AppointmentController {
 				appointment.setAppointmentEndTime(new Timestamp(endDate.getTime()));
 				appointment.setDoctor(doctorsRepository.getOne(appointmentDto.getDoctorId()));
 				appointment.setPetId(appointmentDto.getPetId());
-				appointment.setVeterinary(appointmentDto.getVeterinary());
+				appointment.setVeterinary(veterinaryService.getVeternity(appointmentDto.getBranchId()));
 
 				AppointmentStatus status = new AppointmentStatus();
-				status.setUserId(appointmentDto.getUserId());
+				status.setUserId(userService.getUser(appointmentDto.getUserId()));
 				status.setAppointmentId(appointment.getId());
 				status = appointmentStatustService.schedule(status);
 				appointment.setStatusId(status.getScheduleId());

@@ -1,6 +1,7 @@
 package com.intuit.demo.boot.appointment.service;
 
 
+import java.text.ParseException;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,7 +17,7 @@ public interface AppointmentService {
 
     List<Appointment> findAll();
 
-    boolean isAvailable(final Long petId,final Long vetId,String startDate, String endDate);
+    boolean isAvailable(final Long petId,final Long vetId,String startDate, String endDate) throws ParseException ;
 
     Appointment create(Appointment appointment);
 
