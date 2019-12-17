@@ -1,10 +1,15 @@
-import {Component, EventEmitter, Output, ViewChild} from "@angular/core";
+import {Component, EventEmitter, Output, ViewChild, OnInit} from "@angular/core";
 import {DayPilot, DayPilotModalComponent} from "daypilot-pro-angular";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import { DataService } from './data.service';
 import { Appointment } from 'src/app/models/app.appointment';
 import { AppointmentStatus } from 'src/app/models/app.appointmentstatus';
 import { User } from 'src/app/models/app.user';
+import { PetService } from 'src/app/services/data/pet-service';
+import { VetsService } from 'src/app/services/data/vets.service';
+import { Pet } from 'src/app/models/app.pet';
+import { Vet } from 'src/app/models/app.vet';
+import { Doctor } from 'src/app/models/doctor';
 
 @Component({
   selector: 'create-dialog',
@@ -15,10 +20,14 @@ import { User } from 'src/app/models/app.user';
               <form [formGroup]="form">
 					
  					<div class="form-item">
-                      <input formControlName="name" type="hidden" ng-value="1"> 
+                      <select  (change)="petValue($event.target.value)" formControlName="name" type="select">
+					 <option *ngFor="let pet of pets" value="{{pet.petId}}">{{pet.petName}}</option> 
+					</select>
                   </div>
  					<div class="form-item">
-                      <input formControlName="name" type="hidden" ng-value="1"> 
+                      <select (change)="vetValue($event.target.value)" formControlName="name" type="select"> 
+						<option *ngFor="let vet of vets" value="{{vet.branchId}}">{{vet.branchName}}</option> 
+						</select>
                   </div>
                   <div class="form-item">
                       <input formControlName="name" type="text" placeholder="Pet Name"> <span
@@ -85,15 +94,22 @@ import { User } from 'src/app/models/app.user';
 	}
   `]
 })
-export class CreateComponent {
+export class CreateComponent implements OnInit {
   @ViewChild("modal", {static: false}) modal: DayPilotModalComponent;
   @Output() close = new EventEmitter();
 
+
   form: FormGroup;
   dateFormat = "MM/dd/yyyy h:mm tt";
+  pets:Pet[];
+  vets:Vet[];
+  petId:any;
+  branchId:any;
 
-  constructor(private fb: FormBuilder, private ds: DataService) {
+  constructor(private fb: FormBuilder, private ds: DataService,private petService:PetService,private vetService:VetsService) {
     this.form = this.fb.group({
+	  pets:["", Validators.required],
+ 	  vets:["", Validators.required],
       name: ["", Validators.required],
       start: ["", this.dateTimeValidator(this.dateFormat)],
       end: ["", [Validators.required, this.dateTimeValidator(this.dateFormat)]]
@@ -102,7 +118,11 @@ export class CreateComponent {
 
   show(args: any) {
     args.name = "";
+    this.petService.loadPets().subscribe(response=>{this.pets =response});
+	this.vetService.loadVets().subscribe(response=>{this.vets=response});
     this.form.setValue({
+	  pets:this.pets,
+ 	  vets:this.vets,
       start: args.start.toString(this.dateFormat),
       end: args.end.toString(this.dateFormat),
       name: ""
@@ -134,10 +154,10 @@ export class CreateComponent {
       price:data.price,
       status:data.status,*/
 	  appointmentId:1,
-	  petId:1,
-      branchId:1,
-      price:'20',
-      status:'booked',
+	  petId:this.petId,
+      branchId:this.branchId,
+      price:'$20',
+      status:'pending',
 	  doctorId:1,
       nameOfDoctor:data.nameOfDoctor,
       appointmentDate:new Date().toDateString,
@@ -162,10 +182,24 @@ export class CreateComponent {
     this.close.emit();
   }
 
+  petValue(petValue){
+	 this.petId=petValue;
+	}
+	vetValue(branchValue){
+	 this.branchId=branchValue;
+	}
   dateTimeValidator(format: string) {
     return function (c: FormControl) {
       let valid = !!DayPilot.Date.parse(c.value, format);
       return valid ? null : {badDateTimeFormat: true};
     };
   }
+
+ngOnInit(){
+	let  pet=new Pet(0,0,'','',0,'','');
+	this.pets=[pet];
+	let doctor= new Doctor(0,'','',['','']);
+	let vet=new Vet(0,'','',[doctor]);
+	this.vets=[vet];
+}
 }

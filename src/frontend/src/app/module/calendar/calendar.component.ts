@@ -36,9 +36,12 @@ export class CalendarComponent implements OnInit {
 
   navigatorConfig = {
 	start:1,
+	dayBeginsHour:8,
+	dayEndsHour:15,
     selectMode: "week",
     showMonths: 1,
-    skipMonths: 3
+    skipMonths: 3,
+    showNonBusiness:"false"
   };
 
 
@@ -75,15 +78,15 @@ export class CalendarComponent implements OnInit {
 
   ngOnInit(): void {
 	let event = {
-	  start: "2019-12-10T10:00:00",
-	  end: "2019-12-10T15:00:00",
+	  start: "2019-12-17T10:00:00",
+	  end: "2019-12-17T15:00:00",
 	  id: 23,
 	  text: "Mary"
 	};
 	
 	let event1 = {
-	  start: "2019-12-11T15:00:00",
-	  end: "2019-12-11T17:00:00",
+	  start: "2019-12-18T15:00:00",
+	  end: "2019-12-18T17:00:00",
 	  id: 24,
 	  text: "Mehta"
 	};

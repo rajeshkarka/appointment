@@ -1,11 +1,10 @@
 package com.intuit.demo.boot.appointment.service;
 
-import java.time.LocalDate;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -47,8 +46,8 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
     @Override
-    public List<Appointment> findByDateRangeSortedByPrice(LocalDate startDate, LocalDate endDate) {
-        return repository.findAllByAppointmentDateBetweenOrderByPriceAsc(startDate, endDate);
+    public boolean isAvailable(final Long petId,final Long vetId,Timestamp startDate, Timestamp endDate) {
+        return false ;//repository.isAvailable(petId,vetId,startDate, endDate);
     }
 
     @Override

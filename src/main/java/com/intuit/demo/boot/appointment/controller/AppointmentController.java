@@ -56,18 +56,19 @@ public class AppointmentController {
 		List<Appointment> appointments=appointmentService.findAll();
 		List<EventDto> events=new ArrayList<EventDto>();
 		for(Appointment appointment:appointments) {
-			EventDto event=new EventDto();
-			event.setId(appointment.getId());
-			event.setStart(appointment.getAppointmentStartTime().toString().replace(" ", "T"));
-			event.setEnd(appointment.getAppointmentEndTime().toString().replace(" ", "T"));
-			event.setText("");
+			EventDto event=createEventDto(appointment);
 			events.add(event);
 		}
         return events;
     }
 	
+	@RequestMapping(path = "/availability/{petId}/{vetId}/{startTime}/{endTime}", method = RequestMethod.GET)
+    boolean isAvailable(@PathVariable Long petId,@PathVariable Long vetId,@PathVariable String startTime,@PathVariable String endTime) {
+		return appointmentService.isAvailable(petId, vetId, Timestamp.valueOf(startTime), Timestamp.valueOf(endTime));
+    }
+	
 	@RequestMapping(path = "/create", method = RequestMethod.POST)
-    Appointment create(@RequestBody AppointmentDTO appointmentDto) {
+    EventDto create(@RequestBody AppointmentDTO appointmentDto) {
 		try {
 		Appointment appointment=new Appointment();
 		appointment.setAppointmentDate(appointmentDto.getAppointmentDate());
@@ -88,11 +89,22 @@ public class AppointmentController {
 		status.setAppointmentId(appointment.getId());
 		status=appointmentStatustService.schedule(status);
 		appointment.setStatusId(status.getScheduleId());
-		appointmentService.create(appointment);
+		appointment=appointmentService.create(appointment);
+		return createEventDto(appointment);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        return new Appointment();
+        return null;
     }
+	
+	private EventDto createEventDto(Appointment appointment) {
+		EventDto event=new EventDto();
+		event.setId(appointment.getId());
+		event.setStart(appointment.getAppointmentStartTime().toString().replace(" ", "T"));
+		event.setEnd(appointment.getAppointmentEndTime().toString().replace(" ", "T"));
+		event.setText("");
+		return event;
+	}
+	
 }
