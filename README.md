@@ -1,5 +1,14 @@
 # appointment
-To Run as a Appointment application
+
+To run angular application.
+
+Install angular cli
+npm install -g @angular/cli
+
+ng build (to build application)
+ng serve (to start application with npm)
+
+To run as a Appointment application
 
 Using Maven plugin:
 
@@ -8,5 +17,3 @@ Using Jar file as a packaged applicationv:
 
 mvn clean package
 java -jar ./target/appointment-0.0.1-SNAPSHOT.jar
-
-#TODO more
